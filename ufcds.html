@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UFCDs — Vanessa Gonçalves</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --dark: #1a1a1a;
+      --gray: #3a3a3a;
+      --gray-mid: #888;
+      --gray-light: #cccccc;
+      --pink: #e8005a;
+      --pink-light: #ff3378;
+      --white: #f5f5f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--pink);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+    .nav-links a.active { color: var(--pink); border-bottom-color: var(--pink); }
+
+    main {
+      padding: 120px 48px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .page-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--gray);
+      padding-bottom: 24px;
+    }
+    .page-intro {
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      margin-bottom: 40px;
+    }
+    .page-intro strong { color: var(--pink); }
+
+    /* UFCD ACCORDION */
+    .ufcd-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .ufcd-item {
+      background: var(--dark);
+      border: 1px solid var(--gray);
+      border-left: 3px solid var(--gray);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-left-color 0.2s;
+    }
+    .ufcd-item.open { border-left-color: var(--pink); }
+
+    .ufcd-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+    .ufcd-header:hover { background: #222; }
+
+    .ufcd-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      min-width: 0;
+    }
+    .ufcd-code {
+      font-size: 0.78rem;
+      color: var(--pink-light);
+      font-weight: 500;
+      white-space: nowrap;
+      min-width: 60px;
+    }
+    .ufcd-name {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      flex: 1;
+    }
+    .ufcd-item.open .ufcd-name { color: var(--white); }
+
+    .ufcd-chevron {
+      flex-shrink: 0;
+      color: var(--gray-mid);
+      transition: transform 0.3s;
+    }
+    .ufcd-item.open .ufcd-chevron { transform: rotate(180deg); color: var(--pink); }
+
+    .ufcd-body {
+      display: none;
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--gray);
+    }
+    .ufcd-item.open .ufcd-body { display: block; }
+
+    .ufcd-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .ufcd-section {
+      background: var(--black);
+      border: 1px dashed var(--gray);
+      border-radius: 2px;
+      padding: 20px;
+    }
+    .ufcd-section h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ufcd-section p {
+      font-size: 0.85rem;
+      color: var(--gray-mid);
+      font-style: italic;
+    }
+
+    footer {
+      border-top: 1px solid var(--gray);
+      text-align: center;
+      padding: 32px 48px;
+      color: var(--gray-mid);
+      font-size: 0.8rem;
+    }
+    footer span { color: var(--pink); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      main { padding: 100px 20px 60px; }
+      .ufcd-sections { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">VG Portfólio</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="formacao.html">Formação</a></li>
+      <li><a href="ufcds.html" class="active">UFCDs</a></li>
+      <li><a href="experiencia.html">Experiência</a></li>
+      <li><a href="contactos.html">Contactos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="page-label">03 — UFCDs</div>
+    <h1 class="page-title">Unidades de Formação de Curta Duração</h1>
+    <p class="page-intro">Clica em cada UFCD para adicionar a tua <strong>reflexão</strong> e os <strong>trabalhos realizados</strong>.</p>
+
+    <div class="ufcd-list" id="ufcdList"></div>
+  </main>
+
+  <footer>© 2025 <span>Vanessa Gonçalves</span> — Todos os direitos reservados.</footer>
+
+  <script>
+    const ufcds = [
+      { code: "0500", name: "Questões culturais, ambientais e de ética profissional" },
+      { code: "0497", name: "Desenvolvimento de conceitos para projetos de organização de eventos" },
+      { code: "PRA-65", name: "Importância dos eventos para a economia da UE" },
+      { code: "0498", name: "Importância dos eventos para a economia da UE" },
+      { code: "0499", name: "Tipos de eventos e de organizadores de eventos" },
+      { code: "0501", name: "Projetos de organização de eventos — planeamento e gestão" },
+      { code: "0502", name: "Códigos, regulamentos e standards nacionais e internacionais" },
+      { code: "0503", name: "Planeamento, encadeamento e calendarização de atividades de eventos" },
+      { code: "0504", name: "Liderança/coordenação de equipas de projetos e comissões da organização" },
+      { code: "0755", name: "Processador de texto — funcionalidades avançadas" },
+      { code: "0757", name: "Folha de cálculo — funcionalidades avançadas" },
+      { code: "0779", name: "Utilitário de apresentação gráfica" },
+      { code: "0508", name: "Língua Inglesa — conceção e promoção" },
+      { code: "0509", name: "Planeamento e implementação de atividades promocionais, de marketing e vendas em eventos" },
+      { code: "0510", name: "Planeamento e implementação de atividades promocionais, de marketing e vendas para reuniões, conferências e congressos" },
+      { code: "0511", name: "Planeamento e implementação de atividades promocionais, de marketing e vendas para exposições e feiras" },
+      { code: "0512", name: "Planeamento de recursos para os projetos de organização de eventos" },
+      { code: "0513", name: "Estruturação de equipas e comités para a elaboração de projetos de eventos" },
+      { code: "0514", name: "Elaboração de orçamentos e procedimentos de contabilidade para projetos de organização de eventos" },
+      { code: "0515", name: "Obtenção dos recursos planeados" },
+      { code: "0516", name: "Elaboração de materiais e de sinalética" },
+      { code: "0517", name: "Língua Inglesa — planeamento e gestão de recursos" },
+      { code: "0518", name: "Elaboração de planos de gestão da segurança em eventos" },
+      { code: "0519", name: "Elaboração de planos para a manutenção da higiene e segurança de eventos" },
+      { code: "0520", name: "Elaboração de planos para lidar com situações de emergência" },
+      { code: "0521", name: "Elaboração de programas de eventos detalhados" },
+      { code: "0522", name: "Elaboração de programas detalhados para reuniões, conferências e congressos, e para exposições e feiras" },
+      { code: "0523", name: "Elaboração de procedimentos de reserva e inscrição" },
+      { code: "0524", name: "Elaboração de planos para montagem, realização e desmontagem de eventos" },
+      { code: "0525", name: "Elaboração de planos para a gestão do protocolo em eventos" },
+      { code: "0526", name: "Língua Inglesa — implementação e gestão" },
+      { code: "0527", name: "Planeamento das relações com os órgãos de comunicação social" },
+      { code: "0528", name: "Gestão de eventos" },
+      { code: "0529", name: "Avaliação e divulgação dos resultados de projetos de organização de eventos" },
+      { code: "0530", name: "Aplicação informática — gestão de projetos" },
+      { code: "0531", name: "Língua Inglesa — acompanhamento e avaliação" },
+    ];
+
+    const list = document.getElementById('ufcdList');
+
+    ufcds.forEach((u, i) => {
+      const item = document.createElement('div');
+      item.className = 'ufcd-item';
+      item.innerHTML = `
+        <div class="ufcd-header">
+          <div class="ufcd-header-left">
+            <span class="ufcd-code">${u.code}</span>
+            <span class="ufcd-name">${u.name}</span>
+          </div>
+          <svg class="ufcd-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="ufcd-body">
+          <div class="ufcd-sections">
+            <div class="ufcd-section">
+              <h4>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                Reflexão
+              </h4>
+              <p>Adiciona aqui a tua reflexão sobre esta UFCD...</p>
+            </div>
+            <div class="ufcd-section">
+              <h4>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+                Trabalhos Realizados
+              </h4>
+              <p>Adiciona aqui os trabalhos desenvolvidos nesta UFCD...</p>
+            </div>
+          </div>
+        </div>
+      `;
+      item.querySelector('.ufcd-header').addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+      list.appendChild(item);
+    });
+  </script>
+</body>
+</html>
