@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contactos — Vanessa Gonçalves</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --dark: #1a1a1a;
+      --gray: #3a3a3a;
+      --gray-mid: #888;
+      --gray-light: #cccccc;
+      --pink: #e8005a;
+      --pink-light: #ff3378;
+      --white: #f5f5f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--pink);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+    .nav-links a.active { color: var(--pink); border-bottom-color: var(--pink); }
+
+    main {
+      padding: 120px 48px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .page-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 64px;
+      border-bottom: 1px solid var(--gray);
+      padding-bottom: 24px;
+    }
+
+    .contacts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--dark);
+      border: 1px solid var(--gray);
+      padding: 20px 24px;
+      border-radius: 2px;
+      text-decoration: none;
+      color: var(--white);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--pink);
+      background: #222;
+    }
+    .contact-link .contact-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .contact-link .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .contact-link .contact-label {
+      font-size: 0.75rem;
+      color: var(--gray-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .contact-link .contact-value {
+      font-size: 0.95rem;
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    footer {
+      border-top: 1px solid var(--gray);
+      text-align: center;
+      padding: 32px 48px;
+      color: var(--gray-mid);
+      font-size: 0.8rem;
+    }
+    footer span { color: var(--pink); }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      main { padding: 100px 20px 60px; }
+      .contacts-grid { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">VG Portfólio</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="formacao.html">Formação</a></li>
+      <li><a href="ufcds.html">UFCDs</a></li>
+      <li><a href="experiencia.html">Experiência</a></li>
+      <li><a href="contactos.html" class="active">Contactos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="page-label">07 — Contactos</div>
+    <h1 class="page-title">Contactos</h1>
+    <div class="contacts-grid fade-in">
+      <a class="contact-link" href="mailto:vanessapoeira22@gmail.com">
+        <span class="contact-icon">✉️</span>
+        <div class="contact-info">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">vanessapoeira22@gmail.com</div>
+        </div>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/vanessa-horta-poeira/" target="_blank">
+        <span class="contact-icon">💼</span>
+        <div class="contact-info">
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">vanessa-horta-poeira</div>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer>© 2025 <span>Vanessa Gonçalves</span> — Todos os direitos reservados.</footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
