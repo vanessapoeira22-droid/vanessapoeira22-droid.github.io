@@ -9,19 +9,16 @@
     :root {
       --black: #0d0d0d;
       --dark: #1a1a1a;
-      --gray: #2e2e2e;
-      --gray-mid: #555;
-      --gray-light: #aaa;
+      --gray: #3a3a3a;
+      --gray-mid: #888;
+      --gray-light: #cccccc;
       --pink: #e8005a;
       --pink-light: #ff3378;
       --pink-glow: rgba(232,0,90,0.15);
       --white: #f5f5f5;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--black);
       color: var(--white);
@@ -35,7 +32,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(13,13,13,0.95);
+      background: rgba(13,13,13,0.97);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--gray);
       display: flex;
@@ -44,51 +41,88 @@
       padding: 0 48px;
       height: 64px;
     }
-
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--pink);
       letter-spacing: 0.05em;
+      text-decoration: none;
     }
-
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
-
     .nav-links a {
       color: var(--gray-light);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       transition: color 0.2s;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
     }
-
-    .nav-links a:hover { color: var(--pink); }
+    .nav-links a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+    .nav-links a.active { color: var(--pink); border-bottom-color: var(--pink); }
 
     /* HERO */
     #hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 120px 48px 80px;
+      align-items: center;
+      padding: 100px 48px 80px;
       position: relative;
       overflow: hidden;
     }
-
     #hero::before {
       content: '';
       position: absolute;
       top: -200px; right: -200px;
-      width: 600px; height: 600px;
+      width: 700px; height: 700px;
       background: radial-gradient(circle, var(--pink-glow) 0%, transparent 70%);
       pointer-events: none;
     }
-
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .hero-text { flex: 1; }
+    .hero-photo {
+      flex-shrink: 0;
+      width: 280px;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 2px;
+      border: 2px solid var(--gray);
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+    }
+    .hero-photo img:hover { filter: grayscale(0%); }
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 360px;
+      background: var(--dark);
+      border: 2px dashed var(--gray);
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--gray-mid);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 24px;
+    }
+    .hero-photo-placeholder svg { opacity: 0.4; }
     .hero-tag {
       font-size: 0.75rem;
       letter-spacing: 0.2em;
@@ -96,32 +130,43 @@
       color: var(--pink);
       margin-bottom: 24px;
     }
-
     .hero-name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 8vw, 7rem);
+      font-size: clamp(3rem, 7vw, 6rem);
       font-weight: 900;
       line-height: 1;
       color: var(--white);
       margin-bottom: 16px;
     }
-
     .hero-name span { color: var(--pink); }
-
     .hero-title {
-      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-size: clamp(1rem, 2vw, 1.3rem);
       color: var(--gray-light);
       font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .hero-location {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 40px;
     }
-
-    .hero-location {
-      font-size: 0.85rem;
-      color: var(--gray-mid);
-      letter-spacing: 0.05em;
+    .hero-location svg { color: var(--pink); flex-shrink: 0; }
+    .hero-cta {
+      display: inline-block;
+      background: var(--pink);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 1px;
+      transition: background 0.2s;
     }
-
-    .hero-location::before { content: '📍 '; }
+    .hero-cta:hover { background: var(--pink-light); }
 
     .scroll-hint {
       position: absolute;
@@ -133,19 +178,22 @@
       text-transform: uppercase;
       animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 0.4; }
       50% { opacity: 1; }
     }
 
-    /* SECTIONS */
-    section {
+    /* SOBRE */
+    #sobre {
       padding: 100px 48px;
       max-width: 1100px;
       margin: 0 auto;
     }
-
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, var(--pink), transparent);
+      margin: 0 48px;
+    }
     .section-label {
       font-size: 0.7rem;
       letter-spacing: 0.25em;
@@ -153,255 +201,30 @@
       color: var(--pink);
       margin-bottom: 16px;
     }
-
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 700;
       color: var(--white);
-      margin-bottom: 48px;
+      margin-bottom: 40px;
       border-bottom: 1px solid var(--gray);
       padding-bottom: 24px;
     }
-
-    /* SOBRE MIM */
     .about-text {
       font-size: 1.05rem;
       color: var(--gray-light);
       max-width: 720px;
       line-height: 1.9;
     }
-
     .about-text p + p { margin-top: 20px; }
 
-    /* FORMAÇÃO */
-    .formation-grid {
-      display: grid;
-      gap: 24px;
+    /* FADE IN */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
-    .formation-card {
-      background: var(--dark);
-      border: 1px solid var(--gray);
-      border-left: 3px solid var(--pink);
-      padding: 28px 32px;
-      border-radius: 2px;
-      transition: background 0.2s;
-    }
-
-    .formation-card:hover { background: var(--gray); }
-
-    .formation-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .formation-card .institution {
-      font-size: 0.9rem;
-      color: var(--pink-light);
-      margin-bottom: 4px;
-    }
-
-    .formation-card .year {
-      font-size: 0.8rem;
-      color: var(--gray-mid);
-      letter-spacing: 0.05em;
-    }
-
-    .formation-card .detail {
-      margin-top: 12px;
-      font-size: 0.88rem;
-      color: var(--gray-light);
-    }
-
-    /* UFCDs */
-    .ufcd-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    .ufcd-table th {
-      background: var(--pink);
-      color: var(--white);
-      padding: 12px 16px;
-      text-align: left;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-    }
-
-    .ufcd-table td {
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--gray);
-      color: var(--gray-light);
-    }
-
-    .ufcd-table tr:hover td {
-      background: var(--dark);
-      color: var(--white);
-    }
-
-    .ufcd-table td:first-child {
-      color: var(--pink-light);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    /* COMPETÊNCIAS */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .skill-block {
-      background: var(--dark);
-      border: 1px solid var(--gray);
-      padding: 28px;
-      border-radius: 2px;
-    }
-
-    .skill-block h3 {
-      font-family: 'Playfair Display', serif;
-      color: var(--pink);
-      font-size: 1rem;
-      margin-bottom: 16px;
-    }
-
-    .skill-block ul {
-      list-style: none;
-    }
-
-    .skill-block ul li {
-      color: var(--gray-light);
-      font-size: 0.88rem;
-      padding: 4px 0;
-      border-bottom: 1px solid var(--gray);
-    }
-
-    .skill-block ul li::before {
-      content: '— ';
-      color: var(--pink);
-    }
-
-    /* TRABALHOS */
-    .works-placeholder {
-      background: var(--dark);
-      border: 2px dashed var(--gray);
-      border-radius: 2px;
-      padding: 64px 32px;
-      text-align: center;
-      color: var(--gray-mid);
-    }
-
-    .works-placeholder .icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
-    }
-
-    .works-placeholder p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .works-placeholder strong {
-      color: var(--pink);
-    }
-
-    /* REFLEXÕES */
-    .reflections-placeholder {
-      background: var(--dark);
-      border: 2px dashed var(--gray);
-      border-radius: 2px;
-      padding: 64px 32px;
-      text-align: center;
-      color: var(--gray-mid);
-    }
-
-    .reflections-placeholder .icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
-    }
-
-    .reflections-placeholder p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .reflections-placeholder strong { color: var(--pink); }
-
-    /* EXPERIÊNCIA */
-    .exp-card {
-      background: var(--dark);
-      border: 1px solid var(--gray);
-      border-left: 3px solid var(--pink);
-      padding: 28px 32px;
-      border-radius: 2px;
-    }
-
-    .exp-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .exp-card .period {
-      color: var(--pink-light);
-      font-size: 0.85rem;
-      margin-bottom: 12px;
-    }
-
-    .exp-card p {
-      color: var(--gray-light);
-      font-size: 0.9rem;
-    }
-
-    /* CONTACTOS */
-    .contacts-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 480px;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--dark);
-      border: 1px solid var(--gray);
-      padding: 20px 24px;
-      border-radius: 2px;
-      text-decoration: none;
-      color: var(--white);
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .contact-link:hover {
-      border-color: var(--pink);
-      background: var(--gray);
-    }
-
-    .contact-link .contact-icon {
-      font-size: 1.4rem;
-    }
-
-    .contact-link .contact-label {
-      font-size: 0.75rem;
-      color: var(--gray-mid);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .contact-link .contact-value {
-      font-size: 0.95rem;
-      color: var(--white);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* FOOTER */
     footer {
@@ -411,60 +234,61 @@
       color: var(--gray-mid);
       font-size: 0.8rem;
     }
-
     footer span { color: var(--pink); }
 
-    /* DIVIDER */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, var(--pink), transparent);
-      margin: 0 48px;
-      max-width: calc(100% - 96px);
-    }
-
-    /* FADE IN */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 0.75rem; }
+      .hero-inner { flex-direction: column-reverse; gap: 32px; }
+      .hero-photo { width: 100%; max-width: 320px; margin: 0 auto; }
+      #hero, #sobre { padding-left: 20px; padding-right: 20px; }
+      .divider { margin: 0 20px; }
+      .scroll-hint { left: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
-    <div class="nav-logo">VG Portfólio</div>
+    <a href="index.html" class="nav-logo">VG Portfólio</a>
     <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#formacao">Formação</a></li>
-      <li><a href="#ufcds">UFCDs</a></li>
-      <li><a href="#trabalhos">Trabalhos</a></li>
-      <li><a href="#reflexoes">Reflexões</a></li>
-      <li><a href="#contactos">Contactos</a></li>
+      <li><a href="index.html" class="active">Início</a></li>
+      <li><a href="formacao.html">Formação</a></li>
+      <li><a href="ufcds.html">UFCDs</a></li>
+      <li><a href="experiencia.html">Experiência</a></li>
+      <li><a href="contactos.html">Contactos</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section id="hero">
-    <div class="hero-tag">Portfólio Profissional · IEFP</div>
-    <h1 class="hero-name">Vanessa<br/><span>Gonçalves</span></h1>
-    <p class="hero-title">Técnica de Organização de Eventos</p>
-    <p class="hero-location">Figueira da Foz, Distrito de Coimbra</p>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag">Portfólio Profissional · IEFP</div>
+        <h1 class="hero-name">Vanessa<br/><span>Gonçalves</span></h1>
+        <p class="hero-title">Técnica de Organização de Eventos</p>
+        <p class="hero-location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Figueira da Foz, Distrito de Coimbra
+        </p>
+        <a href="formacao.html" class="hero-cta">Ver Portfólio</a>
+      </div>
+      <div class="hero-photo">
+        <img src="foto.jpg" alt="Vanessa Gonçalves"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="hero-photo-placeholder" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Carrega o ficheiro<br/><strong>foto.jpg</strong><br/>para o repositório</span>
+        </div>
+      </div>
+    </div>
     <div class="scroll-hint">↓ Scroll</div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- SOBRE MIM -->
   <section id="sobre" class="fade-in">
-    <div class="section-label">01 — Sobre Mim</div>
+    <div class="section-label">Sobre Mim</div>
     <h2 class="section-title">Apresentação Pessoal</h2>
     <div class="about-text">
       <p>O meu percurso profissional tem sido construído em torno do sector do Turismo e dos Eventos. Possuo uma especialização de nível V em Gestão de Turismo, complementada por diversas formações de curta duração na área, o que me permitiu desenvolver uma visão abrangente e estruturada do sector.</p>
@@ -473,147 +297,6 @@
     </div>
   </section>
 
-  <div class="divider"></div>
-
-  <!-- FORMAÇÃO -->
-  <section id="formacao" class="fade-in">
-    <div class="section-label">02 — Formação</div>
-    <h2 class="section-title">Formação Académica</h2>
-    <div class="formation-grid">
-      <div class="formation-card">
-        <h3>Técnico de Organização de Eventos</h3>
-        <div class="institution">IEFP</div>
-        <div class="year">Em curso</div>
-      </div>
-      <div class="formation-card">
-        <h3>Especialização em Gestão de Turismo — Nível V</h3>
-        <div class="institution">Citeforma</div>
-        <div class="year">Concluído em 2023</div>
-        <div class="detail">
-          Estágio na Casa Mãe da Rota dos Vinhos da Península de Setúbal e no Ponto de Turismo no Castelo de Palmela, através da Câmara Municipal de Palmela.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- UFCDs -->
-  <section id="ufcds" class="fade-in">
-    <div class="section-label">03 — UFCDs</div>
-    <h2 class="section-title">Unidades de Formação de Curta Duração</h2>
-    <table class="ufcd-table">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Designação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>0500</td><td>Questões culturais, ambientais e de ética profissional</td></tr>
-        <tr><td>0497</td><td>Desenvolvimento de conceitos para projetos de organização de eventos</td></tr>
-        <tr><td>PRA-65</td><td>Importância dos eventos para a economia da UE</td></tr>
-        <tr><td>0498</td><td>Importância dos eventos para a economia da UE</td></tr>
-        <tr><td>0499</td><td>Tipos de eventos e de organizadores de eventos</td></tr>
-        <tr><td>0501</td><td>Projetos de organização de eventos — planeamento e gestão</td></tr>
-        <tr><td>0502</td><td>Códigos, regulamentos e standards nacionais e internacionais</td></tr>
-        <tr><td>0503</td><td>Planeamento, encadeamento e calendarização de atividades de eventos</td></tr>
-        <tr><td>0504</td><td>Liderança/coordenação de equipas de projetos e comissões da organização</td></tr>
-        <tr><td>0755</td><td>Processador de texto — funcionalidades avançadas</td></tr>
-        <tr><td>0757</td><td>Folha de cálculo — funcionalidades avançadas</td></tr>
-        <tr><td>0779</td><td>Utilitário de apresentação gráfica</td></tr>
-        <tr><td>0508</td><td>Língua Inglesa — conceção e promoção</td></tr>
-        <tr><td>0509</td><td>Planeamento e implementação de atividades promocionais, de marketing e vendas em eventos</td></tr>
-        <tr><td>0510</td><td>Planeamento e implementação de atividades promocionais, de marketing e vendas para reuniões, conferências e congressos</td></tr>
-        <tr><td>0511</td><td>Planeamento e implementação de atividades promocionais, de marketing e vendas para exposições e feiras</td></tr>
-        <tr><td>0512</td><td>Planeamento de recursos para os projetos de organização de eventos</td></tr>
-        <tr><td>0513</td><td>Estruturação de equipas e comités para a elaboração de projetos de eventos</td></tr>
-        <tr><td>0514</td><td>Elaboração de orçamentos e procedimentos de contabilidade para projetos de organização de eventos</td></tr>
-        <tr><td>0515</td><td>Obtenção dos recursos planeados</td></tr>
-        <tr><td>0516</td><td>Elaboração de materiais e de sinalética</td></tr>
-        <tr><td>0517</td><td>Língua Inglesa — planeamento e gestão de recursos</td></tr>
-        <tr><td>0518</td><td>Elaboração de planos de gestão da segurança em eventos</td></tr>
-        <tr><td>0519</td><td>Elaboração de planos para a manutenção da higiene e segurança de eventos</td></tr>
-        <tr><td>0520</td><td>Elaboração de planos para lidar com situações de emergência</td></tr>
-        <tr><td>0521</td><td>Elaboração de programas de eventos detalhados</td></tr>
-        <tr><td>0522</td><td>Elaboração de programas detalhados para reuniões, conferências e congressos, e para exposições e feiras</td></tr>
-        <tr><td>0523</td><td>Elaboração de procedimentos de reserva e inscrição</td></tr>
-        <tr><td>0524</td><td>Elaboração de planos para montagem, realização e desmontagem de eventos</td></tr>
-        <tr><td>0525</td><td>Elaboração de planos para a gestão do protocolo em eventos</td></tr>
-        <tr><td>0526</td><td>Língua Inglesa — implementação e gestão</td></tr>
-        <tr><td>0527</td><td>Planeamento das relações com os órgãos de comunicação social</td></tr>
-        <tr><td>0528</td><td>Gestão de eventos</td></tr>
-        <tr><td>0529</td><td>Avaliação e divulgação dos resultados de projetos de organização de eventos</td></tr>
-        <tr><td>0530</td><td>Aplicação informática — gestão de projetos</td></tr>
-        <tr><td>0531</td><td>Língua Inglesa — acompanhamento e avaliação</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- TRABALHOS -->
-  <section id="trabalhos" class="fade-in">
-    <div class="section-label">04 — Trabalhos</div>
-    <h2 class="section-title">Trabalhos Realizados</h2>
-    <div class="works-placeholder">
-      <div class="icon">📁</div>
-      <p>Esta secção será preenchida com os trabalhos desenvolvidos ao longo do curso.<br/>
-      <strong>Adiciona aqui os teus projetos, apresentações e documentos.</strong></p>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- REFLEXÕES -->
-  <section id="reflexoes" class="fade-in">
-    <div class="section-label">05 — Reflexões</div>
-    <h2 class="section-title">Reflexões de Aprendizagem</h2>
-    <div class="reflections-placeholder">
-      <div class="icon">✍️</div>
-      <p>Esta secção será preenchida com as tuas reflexões sobre o percurso formativo.<br/>
-      <strong>Partilha aqui as tuas aprendizagens, desafios e evolução pessoal.</strong></p>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- EXPERIÊNCIA -->
-  <section id="experiencia" class="fade-in">
-    <div class="section-label">06 — Experiência</div>
-    <h2 class="section-title">Experiência Profissional</h2>
-    <div class="exp-card">
-      <h3>Promotora de Eventos Musicais</h3>
-      <div class="period">2015 – 2020</div>
-      <p>Exerci funções de promotora de eventos musicais durante cinco anos, adquirindo experiência prática na área da promoção, comunicação e logística associadas a eventos.</p>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CONTACTOS -->
-  <section id="contactos" class="fade-in">
-    <div class="section-label">07 — Contactos</div>
-    <h2 class="section-title">Contactos</h2>
-    <div class="contacts-grid">
-      <a class="contact-link" href="mailto:vanessapoeira22@gmail.com">
-        <span class="contact-icon">✉️</span>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value">vanessapoeira22@gmail.com</div>
-        </div>
-      </a>
-      <a class="contact-link" href="https://www.linkedin.com/in/vanessa-horta-poeira/" target="_blank">
-        <span class="contact-icon">💼</span>
-        <div>
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value">vanessa-horta-poeira</div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer>
     © 2025 <span>Vanessa Gonçalves</span> — Todos os direitos reservados.
   </footer>
@@ -624,6 +307,5 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
-
 </body>
 </html>
