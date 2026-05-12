@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portfólio — Vanessa Gonçalves</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
   <style>
     :root {
       --black: #0d0d0d;
@@ -14,61 +16,53 @@
       --gray-light: #cccccc;
       --pink: #e8005a;
       --pink-light: #ff3378;
-      --pink-glow: rgba(232,0,90,0.15);
       --white: #f5f5f5;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
-
     body {
       background: var(--black);
       color: var(--white);
       font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
       line-height: 1.7;
     }
 
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
       background: rgba(13,13,13,0.97);
-      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--gray);
       display: flex;
-      align-items: center;
       justify-content: space-between;
       padding: 0 48px;
       height: 64px;
+      align-items: center;
+      z-index: 100;
     }
 
     .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
       color: var(--pink);
       text-decoration: none;
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 24px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--gray-light);
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      border-bottom: 2px solid transparent;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
       color: var(--pink);
-      border-bottom-color: var(--pink);
     }
 
     /* HERO */
@@ -76,86 +70,77 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 100px 48px 80px;
-      position: relative;
+      padding: 100px 48px;
     }
 
     .hero-inner {
       display: flex;
-      align-items: center;
-      gap: 64px;
+      gap: 60px;
       max-width: 1100px;
       margin: 0 auto;
-      width: 100%;
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 6rem);
-      font-weight: 900;
-    }
-
-    .hero-name span { color: var(--pink); }
-
-    .hero-title { color: var(--gray-light); }
-
-    .hero-location {
-      margin-top: 12px;
-      color: var(--gray-light);
+      align-items: center;
     }
 
     .hero-photo img {
       width: 280px;
       height: 360px;
       object-fit: cover;
-      border: 2px solid var(--gray);
+
+      /* borda mais suave/transparente */
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
     }
 
-    /* SOBRE */
-    #sobre {
-      padding: 60px 48px 100px; /* ↑ aproximado para subir ligeiramente */
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      color: var(--pink);
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
+    .hero-name {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      border-bottom: 1px solid var(--gray);
-      padding-bottom: 20px;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      margin-bottom: 10px;
     }
 
-    .about-text {
-      max-width: 720px;
+    .hero-name span {
+      color: var(--pink);
+    }
+
+    .hero-title {
       color: var(--gray-light);
+      margin-bottom: 20px;
     }
 
-    .about-text p + p {
-      margin-top: 18px;
+    /* SOBRE DENTRO DO HERO */
+    .hero-about {
+      max-width: 600px;
+      color: var(--gray-light);
+      font-size: 0.95rem;
+    }
+
+    .hero-about p + p {
+      margin-top: 12px;
+    }
+
+    /* SOBRE (se quiser manter depois na página também) */
+    #sobre {
+      display: none;
     }
 
     footer {
       border-top: 1px solid var(--gray);
       text-align: center;
-      padding: 32px;
+      padding: 30px;
       color: var(--gray-mid);
     }
 
     footer span { color: var(--pink); }
 
     @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .hero-inner { flex-direction: column-reverse; }
-      #hero, #sobre { padding-left: 20px; padding-right: 20px; }
+      .hero-inner {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      #hero {
+        padding: 120px 20px 60px;
+      }
     }
   </style>
 </head>
@@ -175,26 +160,22 @@
 
 <section id="hero">
   <div class="hero-inner">
+
     <div>
       <h1 class="hero-name">Vanessa <span>Gonçalves</span></h1>
       <p class="hero-title">Técnica de Organização de Eventos</p>
-      <p class="hero-location">📍 Figueira da Foz</p>
+
+      <div class="hero-about">
+        <p>O meu percurso profissional tem sido construído em torno do sector do Turismo e dos Eventos.</p>
+        <p>Possuo uma especialização de nível V em Gestão de Turismo, complementada por formações na área.</p>
+        <p>O meu objetivo é aplicar os conhecimentos adquiridos no mercado de trabalho e desenvolver um projeto próprio.</p>
+      </div>
     </div>
 
     <div class="hero-photo">
       <img src="foto.jpg" alt="Vanessa Gonçalves">
     </div>
-  </div>
-</section>
 
-<section id="sobre">
-  <div class="section-label">Sobre Mim</div>
-  <h2 class="section-title">Apresentação Pessoal</h2>
-
-  <div class="about-text">
-    <p>O meu percurso profissional tem sido construído em torno do sector do Turismo e dos Eventos...</p>
-    <p>A decisão de complementar a minha formação surgiu de forma natural...</p>
-    <p>O meu objetivo é aplicar os conhecimentos técnicos adquiridos no mercado de trabalho...</p>
   </div>
 </section>
 
